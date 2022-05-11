@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import ToDoForm from './ToDoForm';
+import ToDoList from './ToDoList';
+import useTasks from './useTasks.js';
 
 function App() {
+
+  const { tasks, addTask, deleteTask} = useTasks([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <>
+      <div className='flex-1'>
+        <ToDoList
+          todos={tasks}
+          deleteTodo={deleteTask}
+        />
+      </div>
+      <ToDoForm
+        className='mb-0'
+        saveTodo={taskText => {
+          const trimmed = taskText.trim()
+          if (trimmed.length > 0) {
+            addTask(trimmed)
+          }
+        }} />
+
+    </>
+
+
   );
 }
 
