@@ -3,15 +3,25 @@ import { Button } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import React, { useState } from 'react';
 import useInputState from './useInputState.js';
+import { addTask } from './store/taskSlice';
+import { useDispatch } from 'react-redux';
 
 
-const TodoForm = ({ saveTodo }) => {
+
+const TodoForm = () => {
 
     const { value, onChange, reset } = useInputState('');
 
+    const dispatch = useDispatch();
+
+    const addTodo = () => {
+        dispatch(addTask({value}));
+        reset();
+    }
+
     const submitForm = event => {
         event.preventDefault();
-        saveTodo(value);
+        addTodo();
         reset();
     }
 
@@ -21,9 +31,9 @@ const TodoForm = ({ saveTodo }) => {
         >
             <TextField
                 sx={{
-                    background:'#5c70be',
+                    background: '#5c70be',
                     marginRight: 2,
-                    '& .Mui-focused':{
+                    '& .Mui-focused': {
                         background: 'whitesmoke',
                         color: grey[700],
                         outlineColor: '#5c70be'
@@ -40,8 +50,8 @@ const TodoForm = ({ saveTodo }) => {
             <Button
                 sx={{
                     background: 'whitesmoke',
-                    color:'#5c70be',
-                    '&:hover':{
+                    color: '#5c70be',
+                    '&:hover': {
                         background: '#5c70be',
                         color: 'whitesmoke'
                     }

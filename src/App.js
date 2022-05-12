@@ -2,34 +2,30 @@ import React from 'react';
 import './App.css';
 import ToDoForm from './ToDoForm';
 import ToDoList from './ToDoList';
-import useTasks from './useTasks.js';
+import { useState } from 'react';
+
 
 function App() {
 
-  const { tasks, addTask, completeTask, deleteTask} = useTasks([]);
+  const completeTask = taskID => {
+    /*  setTasks(tasks.map(
+       task => {
+         if (task.id !== taskID) return task;
+         return {
+           ...task,
+           completed: !task.completed
+         }
+       }
+     )) */
+  }
 
   return (
-
     <>
       <div className='flex-1'>
-        <ToDoList
-          todos={tasks}
-          completeTask={completeTask}
-          deleteTodo={deleteTask}
-        />
+        <ToDoList/>
       </div>
-      <ToDoForm
-        className='mb-0'
-        saveTodo={taskText => {
-          const trimmed = taskText.trim()
-          if (trimmed.length > 0) {
-            addTask(trimmed)
-          }
-        }} />
-
+      <ToDoForm />
     </>
-
-
   );
 }
 
