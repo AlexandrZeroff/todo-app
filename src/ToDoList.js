@@ -3,9 +3,9 @@ import { List, ListItem, ListItemSecondaryAction, ListItemText, Checkbox, IconBu
 import DeleteIcon from '@mui/icons-material/Delete';
 import { grey, red } from '@mui/material/colors';
 
-const TodoList = ({ todos, deleteTodo }) => (
+const TodoList = ({ todos, completeTask, deleteTodo }) => (
     <List>
-        {todos.map((todo, index) => (
+        {todos.map(todo => (
             <ListItem
                 sx={{
                     background: 'white',
@@ -15,18 +15,20 @@ const TodoList = ({ todos, deleteTodo }) => (
                     },
                     marginBottom: 0.5
                 }}
-                key={index.toString()} dense button>
+                key={todo.id} dense button>
                 <Checkbox
                     sx={{
                         color: grey[600]
                     }}
+                    checked={todo.completed}
                     tabIndex={-1}
+                    onChange={() => completeTask(todo.id)}
                     disableRipple />
                 <ListItemText
                     sx={{
                         color: grey[800]
                     }}
-                    primary={todo} />
+                    primary={todo.text} />
                 <ListItemSecondaryAction>
                     <IconButton
                         aria-label="Delete"
@@ -34,7 +36,7 @@ const TodoList = ({ todos, deleteTodo }) => (
                             color: grey[600]
                         }}
                         onClick={() => {
-                            deleteTodo(index);
+                            deleteTodo(todo.id);
                         }}
                     >
                         <DeleteIcon />

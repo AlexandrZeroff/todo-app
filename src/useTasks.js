@@ -5,15 +5,31 @@ export default initialValue => {
     const [tasks, setTasks] = useState(initialValue);
 
     return {
-        tasks, 
+        tasks,
 
         addTask: taskText => {
-            setTasks([...tasks, taskText]);
+            setTasks([...tasks, {
+                id: new Date().toISOString(),
+                text: taskText,
+                completed: false
+            }]);
         },
 
-        deleteTask: delIndex => {
+        completeTask: taskID => {
+            setTasks(tasks.map(
+                task => {
+                    if (task.id !== taskID) return task;
+                    return {
+                        ...task,
+                        completed: !task.completed
+                    }
+                }
+            ))
+        },
+
+        deleteTask: delID => {
             const newTasks = tasks
-            .filter((_, index) => index !== delIndex);
+                .filter(task => task.id !== delID);
             setTasks(newTasks);
         }
     }

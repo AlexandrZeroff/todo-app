@@ -6,7 +6,7 @@ import useTasks from './useTasks.js';
 
 function App() {
 
-  const { tasks, addTask, deleteTask} = useTasks([]);
+  const { tasks, addTask, completeTask, deleteTask} = useTasks([]);
 
   return (
 
@@ -14,6 +14,7 @@ function App() {
       <div className='flex-1'>
         <ToDoList
           todos={tasks}
+          completeTask={completeTask}
           deleteTodo={deleteTask}
         />
       </div>
